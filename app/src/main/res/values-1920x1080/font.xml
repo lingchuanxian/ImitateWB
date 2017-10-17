@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="commonC4">12sp</dimen>
+    <dimen name="commonC3">13sp</dimen>
+    <dimen name="commonC2">14sp</dimen>
+    <dimen name="commonC1">15sp</dimen>
+    <dimen name="common">16sp</dimen>
+    <dimen name="commonA1">17sp</dimen>
+    <dimen name="commonA2">18sp</dimen>
+    <dimen name="commonA3">196sp</dimen>
+    <dimen name="commonA4">20sp</dimen>
+</resources>

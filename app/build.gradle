@@ -1,0 +1,112 @@
+apply plugin: 'com.android.application'
+
+def cfg = rootProject.ext.android // 配置
+def version = rootProject.ext.version // 版本
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+    defaultConfig {
+        applicationId "cn.fjlcx.android.imitatewb"
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+        testInstrumentationRunner "android.support.News.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            // 混淆
+            minifyEnabled false
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories{
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    // 将 .so 文件打包为 Native_Libs.jar 包文件
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
+    }
+
+    sourceSets.main{
+        jniLibs.srcDirs = ['libs'];
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/Native_Libs.jar') // 加载上方 .so 生成的该文件
+    compile(name: 'openDefault-4.1.5', ext: 'aar')
+    //support
+    compile "com.android.support:appcompat-v7:${version.androidSupportSdkVersion}"
+    compile "com.android.support:design:${version.androidSupportSdkVersion}"
+    compile "com.android.support:support-v4:${version.androidSupportSdkVersion}"
+    compile "com.android.support:cardview-v7:${version.androidSupportSdkVersion}"
+    compile "com.android.support:support-annotations:${version.androidSupportSdkVersion}"
+    compile "com.android.support:recyclerview-v7:${version.androidSupportSdkVersion}"
+    //视图注入
+    compile "com.jakewharton:butterknife:${version.butterknifeSdkVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${version.butterknifeSdkVersion}"
+    //内存检测
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${version.leakcanarySdkVersion}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${version.leakcanarySdkVersion}"
+    //加载动画
+    compile 'com.github.ybq:Android-SpinKit:1.0.4'
+    //Dagger2
+    annotationProcessor "com.google.dagger:dagger-compiler:${version.dagger2SdkVersion}"
+    compile "com.google.dagger:dagger:${version.dagger2SdkVersion}"
+    //RxJava
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    //retrofit
+    compile "com.squareup.retrofit2:retrofit:${version.retrofitSdkVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${version.retrofitSdkVersion}"
+    compile "com.squareup.retrofit2:converter-scalars:${version.retrofitSdkVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${version.retrofitSdkVersion}"
+    //okhttp3
+    compile "com.squareup.okhttp3:okhttp:${version.okhttp3SdkVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${version.okhttp3SdkVersion}"
+    //gson
+    compile "com.google.code.gson:gson:${version.gsonSdkVersion}"
+    //recyclerview
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    //BaseRecyclerViewAdapterHelper
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18'
+    //glide
+    compile 'com.github.bumptech:glide:v3.7.0'
+    //自定义异常页面
+    compile 'cat.ereza:customactivityoncrash:2.1.0'
+    // material-dialogs
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+    //多样tab菜单
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    //dom4j
+    compile 'com.github.dom4j:dom4j:version-2.0.0'
+    //文件下载
+    compile 'com.liulishuo.filedownloader:library:1.6.4'
+    //html处理
+    compile 'com.github.arnt:jsoup:jsoup-1.9.1'
+    //事件总线
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.github.smlcx:LingWidget:1.0.2'
+}
