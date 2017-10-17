@@ -88,12 +88,13 @@ public class HomeActivity extends BaseActivity<HomeTimelinePresenter> implements
 
 	public void loadData() {
 		HomeSubmit mHomeSubmit = new HomeSubmit();
-		if (mAccessToken.isSessionValid()) {
-			mHomeSubmit.setAccess_token(AccessTokenKeeper.readAccessToken(mContext).getToken());
+		//if (mAccessToken.isSessionValid()) {
+			//mHomeSubmit.setAccess_token(AccessTokenKeeper.readAccessToken(mContext).getToken());
+			mHomeSubmit.setAccess_token("2.00qShHNEyOMuzB1fd9ac194fFABsxD");
 			mHomeSubmit.setCount(20);
 			mHomeSubmit.setPage(1);
 			mPresenter.HomeTimeline(mHomeSubmit);
-		}
+		//}
 	}
 
 	@Override

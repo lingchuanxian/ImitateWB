@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:paddingLeft="@dimen/y6"
               android:paddingRight="@dimen/y6"
               android:layout_marginTop="20dp"
@@ -20,9 +20,9 @@
             android:layout_height="match_parent">
 
             <ImageView android:id="@+id/imgv_head"
-                android:layout_width="@dimen/y32"
-                android:layout_height="@dimen/y32"
-                android:layout_gravity="center_vertical"/>
+                       android:layout_width="@dimen/y32"
+                       android:layout_height="@dimen/y32"
+                       android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
 
@@ -38,15 +38,15 @@
                 android:layout_height="@dimen/y18"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
-                android:textSize="@dimen/common"/>
+                android:textSize="@dimen/commonC2"/>
 
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/y18"
+                android:layout_height="@dimen/y14"
                 android:gravity="center_vertical"
                 android:textColor="@color/font_gray"
-                android:textSize="@dimen/commonC3"/>
+                android:textSize="@dimen/commonC4"/>
 
         </LinearLayout>
 
@@ -54,7 +54,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/y8">
 
         <TextView
             android:id="@+id/tv_content"
@@ -67,7 +68,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/y8">
 
         <ImageView
             android:id="@+id/imgv_cover"
@@ -75,6 +77,11 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/main_bgColor"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,12 +93,25 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_forward"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="123"/>
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/y10"
+                    android:layout_height="@dimen/y10"
+                    android:src="@mipmap/ic_forward"/>
+
+                <TextView
+                    android:id="@+id/tv_forward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/commonC4"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -100,12 +120,23 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_comment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="123"/>
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/y10"
+                    android:layout_height="@dimen/y10"
+                    android:src="@mipmap/ic_comment"/>
+
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/commonC4"/>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -114,12 +145,23 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_fabulous"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="123"/>
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/y10"
+                    android:layout_height="@dimen/y10"
+                    android:src="@mipmap/ic_fabulous"/>
+
+                <TextView
+                    android:id="@+id/tv_fabulous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/commonC4"/>
+            </LinearLayout>
 
         </LinearLayout>
 
