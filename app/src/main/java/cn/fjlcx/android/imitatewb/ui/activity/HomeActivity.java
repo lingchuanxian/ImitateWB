@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -18,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.fjlcx.android.imitatewb.R;
 import cn.fjlcx.android.imitatewb.base.BaseActivity;
 import cn.fjlcx.android.imitatewb.bean.HomeResult;
@@ -81,10 +84,7 @@ public class HomeActivity extends BaseActivity<HomeTimelinePresenter> implements
 		return new String[0];
 	}
 
-	@OnClick(R.id.login)
-	void onClick(View view) {
-		mSsoHandler.authorize(new SelfWbAuthListener());
-	}
+
 
 	public void loadData() {
 		HomeSubmit mHomeSubmit = new HomeSubmit();
@@ -143,6 +143,36 @@ public class HomeActivity extends BaseActivity<HomeTimelinePresenter> implements
 		if (mSsoHandler != null) {
 			mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
 		}
-	}
 
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(this, "扫码取消！", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "扫描成功，条码值: " + result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_login:
+                break;
+            case R.id.action_scan:
+                new IntentIntegrator(HomeActivity.this).initiateScan(); //初始化扫描
+                break;
+            default:break;
+        }
+        return true;
+
+    }
 }
