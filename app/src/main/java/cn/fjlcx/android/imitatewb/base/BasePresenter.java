@@ -2,8 +2,8 @@ package cn.fjlcx.android.imitatewb.base;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * MVP框架的简单封装 P处理层
@@ -16,20 +16,20 @@ public abstract class BasePresenter<M extends BaseModel,V extends BaseView> {
     public M mModel;
     public V mView;
 
-    private CompositeSubscription mCompositeSubscription;
+    private CompositeDisposable mCompositeDisposable;
 
-    public void addSubscribe(Subscription subscription) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeSubscription();
+    public void addSubscribe(Disposable subscription) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
         }
-        mCompositeSubscription.add(subscription);
+        mCompositeDisposable.add(subscription);
     }
     public void unSubscribe() {
         if (mView != null) {
             mView = null;
         }
-        if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
-            mCompositeSubscription.clear();
+        if (mCompositeDisposable != null && mCompositeDisposable.isDisposed()) {
+            mCompositeDisposable.clear();
         }
     }
 

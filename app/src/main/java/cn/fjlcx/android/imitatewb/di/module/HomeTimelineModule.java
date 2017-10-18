@@ -18,12 +18,12 @@ public class HomeTimelineModule {
         this.mView = view;
     }
     @Provides
-    public HomeTimelinePresenter getHomeTimelinePresenter(HomeTimelineModel model){
+    public HomeTimelinePresenter provideHomeTimelinePresenter(HomeTimelineModel model){
         return new HomeTimelinePresenter(model,mView);
     }
 
     @Provides
-    public HomeTimelineModel getHomeTimelineModel(){
+    public HomeTimelineModel provideHomeTimelineModel(){
         return new HomeTimelineModel();
     }
 

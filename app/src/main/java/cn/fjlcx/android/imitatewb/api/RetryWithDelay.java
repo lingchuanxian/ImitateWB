@@ -4,8 +4,9 @@ import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.functions.Func1;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 /**
  * RxJava错误重试
@@ -14,7 +15,7 @@ import rx.functions.Func1;
  */
 
 public class RetryWithDelay implements
-		Func1<Observable<? extends Throwable>, Observable<?>> {
+		Function<Observable<? extends Throwable>, ObservableSource<?>> {
 
 	protected final String TAG = this.getClass().getSimpleName();
 	private final int maxRetries;
@@ -27,11 +28,11 @@ public class RetryWithDelay implements
 	}
 
 	@Override
-	public Observable<?> call(Observable<? extends Throwable> attempts) {
+	public Observable<?> apply(Observable<? extends Throwable> attempts) {
 		return attempts
-				.flatMap(new Func1<Throwable, Observable<?>>() {
+				.flatMap(new Function<Throwable, ObservableSource<?>>() {
 					@Override
-					public Observable<?> call(Throwable throwable) {
+					public Observable<?> apply(Throwable throwable) {
 						if (++retryCount <= maxRetries) {
 							Log.d(TAG, "call: retry");
 							return Observable.timer(retryDelayMillis,

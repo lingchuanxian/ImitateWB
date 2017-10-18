@@ -29,7 +29,7 @@ public class HomeResultAdapter extends BaseQuickAdapter<HomeResult.StatusesBean,
 	}
 	@Override
 	protected void convert(BaseViewHolder helper, HomeResult.StatusesBean item) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd HH-mm");
         Date date = new Date(item.getCreated_at());
         Date currentDate = new Date();
@@ -43,14 +43,17 @@ public class HomeResultAdapter extends BaseQuickAdapter<HomeResult.StatusesBean,
             if(hours > 0){
                 showDateString = hours+"小时前";
             }else{
-                if(minutes < 0){
-                    minutes = 1;
-                }
-                showDateString = minutes+"分钟前";
+                if(minutes == 0){
+					showDateString = "刚刚";
+                }else{
+					showDateString = minutes+"分钟前";
+				}
             }
         }else if(date.getYear() == currentDate.getYear()){
             showDateString = sdf2.format(date);
-        }
+        }else{
+			showDateString = sdf.format(date);
+		}
 
 
 		helper.setText(R.id.tv_username,item.getUser().getName())

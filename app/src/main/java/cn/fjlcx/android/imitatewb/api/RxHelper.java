@@ -3,11 +3,15 @@ package cn.fjlcx.android.imitatewb.api;
 import android.util.Log;
 
 import cn.fjlcx.android.imitatewb.bean.HttpResult;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Rxava结果预处理
@@ -21,13 +25,13 @@ public class RxHelper {
 	 * @param <T>
 	 * @return
 	 */
-	public static <T> Observable.Transformer<HttpResult<T>, T> handleResult() {
-		return new Observable.Transformer<HttpResult<T>, T>() {
+	public static <T> ObservableTransformer<HttpResult<T>, T> handleResult() {
+		return new ObservableTransformer<HttpResult<T>, T>() {
 			@Override
-			public Observable<T> call(Observable<HttpResult<T>> tObservable) {
-				return tObservable.flatMap(new Func1<HttpResult<T>, Observable<T>>() {
+			public Observable<T> apply(Observable<HttpResult<T>> tObservable) {
+				return tObservable.flatMap(new Function<HttpResult<T>, ObservableSource<T>>() {
 					@Override
-					public Observable<T> call(HttpResult<T> result) {
+					public Observable<T> apply(HttpResult<T> result) {
 						Log.d("code", "call: "+result.getReturnCode());
 						if (result.getReturnCode() == 0) {
 							return createData(result.getDetailInfo());
@@ -35,7 +39,9 @@ public class RxHelper {
 							return Observable.error(new ApiException(result.getReturnCode()));
 						}
 					}
-				}).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread());
+				}).subscribeOn(Schedulers.io())
+						.unsubscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread());
 			}
 		};
 	}
@@ -47,16 +53,17 @@ public class RxHelper {
 	 * @return
 	 */
 	private static <T> Observable<T> createData(final T data) {
-		return Observable.create(new Observable.OnSubscribe<T>() {
+		return Observable.create(new ObservableOnSubscribe<T>() {
 			@Override
-			public void call(Subscriber<? super T> subscriber) {
+			public void subscribe(@NonNull ObservableEmitter<T> subscriber) throws Exception {
 				try {
 					subscriber.onNext(data);
-					subscriber.onCompleted();
+					subscriber.onComplete();
 				} catch (Exception e) {
 					subscriber.onError(e);
 				}
 			}
+
 		});
 	}
 }

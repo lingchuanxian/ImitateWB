@@ -7,9 +7,9 @@ import cn.fjlcx.android.imitatewb.base.BaseModel;
 import cn.fjlcx.android.imitatewb.bean.HomeResult;
 import cn.fjlcx.android.imitatewb.bean.HomeSubmit;
 import cn.fjlcx.android.imitatewb.di.scope.ActivityScope;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author ling_cx
@@ -34,5 +34,6 @@ public class HomeTimelineModel implements BaseModel {
 				.observeOn(AndroidSchedulers.mainThread())
 				//.compose(RxHelper.<HttpResult<Object>>handleResult())
 				.retryWhen(new RetryWithDelay(3,3000));
+		//return new Repository(WBApplication.getInstance().getCacheDir()).home_timeline(submit,true);
 	}
 }

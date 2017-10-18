@@ -3,9 +3,9 @@ package cn.fjlcx.android.imitatewb.api;
 import java.math.BigInteger;
 
 import cn.fjlcx.android.imitatewb.bean.HomeResult;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * 请求接口
@@ -29,6 +29,7 @@ public interface ApiService {
 	 * @param feature 过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。
 	 * @param trim_user 返回值中user字段开关，0：返回完整user字段、1：user字段仅返回user_id，默认为0。
 	 * @return
+	 * @Headers("Cache-Control: public, max-age=3600")
 	 */
 	@GET("2/statuses/home_timeline.json")
 	Observable<HomeResult> home_timeline(@Query("access_token") String access_token,

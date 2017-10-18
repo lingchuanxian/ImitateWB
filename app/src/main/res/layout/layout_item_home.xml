@@ -99,9 +99,10 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="@dimen/y10"
-                    android:layout_height="@dimen/y10"
-                    android:src="@mipmap/ic_forward"/>
+                    android:layout_width="@dimen/y12"
+                    android:layout_height="@dimen/y12"
+                    android:src="@mipmap/ic_forward"
+                    android:layout_marginRight="@dimen/y4"/>
 
                 <TextView
                     android:id="@+id/tv_forward"
@@ -126,9 +127,10 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="@dimen/y10"
-                    android:layout_height="@dimen/y10"
-                    android:src="@mipmap/ic_comment"/>
+                    android:layout_width="@dimen/y12"
+                    android:layout_height="@dimen/y12"
+                    android:src="@mipmap/ic_comment"
+                    android:layout_marginRight="@dimen/y4"/>
 
                 <TextView
                     android:id="@+id/tv_comment"
@@ -151,9 +153,10 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="@dimen/y10"
-                    android:layout_height="@dimen/y10"
-                    android:src="@mipmap/ic_fabulous"/>
+                    android:layout_width="@dimen/y12"
+                    android:layout_height="@dimen/y12"
+                    android:src="@mipmap/ic_fabulous"
+                    android:layout_marginRight="@dimen/y4"/>
 
                 <TextView
                     android:id="@+id/tv_fabulous"

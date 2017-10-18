@@ -26,7 +26,6 @@ public class WBApplication extends Application {
 			return;
 		}
 		activityManager = cn.fjlcx.android.imitatewb.global.ActivityManager.getInstance();
-
 	}
 
 	public static WBApplication getInstance() {

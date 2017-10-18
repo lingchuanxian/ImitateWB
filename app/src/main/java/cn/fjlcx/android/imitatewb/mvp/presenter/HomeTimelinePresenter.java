@@ -10,8 +10,9 @@ import cn.fjlcx.android.imitatewb.bean.HomeSubmit;
 import cn.fjlcx.android.imitatewb.di.scope.ActivityScope;
 import cn.fjlcx.android.imitatewb.mvp.model.HomeTimelineModel;
 import cn.fjlcx.android.imitatewb.mvp.view.ViewContract;
-import rx.Subscriber;
-import rx.Subscription;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 公共的Operate类
@@ -20,7 +21,7 @@ import rx.Subscription;
  */
 @ActivityScope
 public class HomeTimelinePresenter extends BasePresenter<HomeTimelineModel,ViewContract.HomeTimelineView> {
-	private Subscription subscribe;
+	private Disposable mDisposable;
 	@Inject
 	public HomeTimelinePresenter(HomeTimelineModel model, ViewContract.HomeTimelineView view) {
 		this.mModel = model;
@@ -28,14 +29,21 @@ public class HomeTimelinePresenter extends BasePresenter<HomeTimelineModel,ViewC
 	}
 
 	public void HomeTimeline(HomeSubmit mSubmitParams){
-		subscribe = mModel.home_timeline(mSubmitParams)
-				.subscribe(new Subscriber<HomeResult>() {
-					@Override
-					public void onCompleted() {
-					}
+		mModel.home_timeline(mSubmitParams)
+				.subscribe(new Observer<HomeResult>() {
 					@Override
 					public void onError(Throwable e) {
 						mView.requestFail(e.getMessage());
+					}
+
+					@Override
+					public void onComplete() {
+
+					}
+
+					@Override
+					public void onSubscribe(@NonNull Disposable d) {
+						mDisposable = d;
 					}
 
 					@Override
@@ -44,6 +52,6 @@ public class HomeTimelinePresenter extends BasePresenter<HomeTimelineModel,ViewC
 						mView.HomeTimelineViewSuccess(result);
 					}
 				});
-		addSubscribe(subscribe);
+		addSubscribe(mDisposable);
 	}
 }
