@@ -15,7 +15,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -46,9 +46,9 @@ public class ApiEngine {
 	};
 
 	private ApiEngine() {
-		//日志拦截器
+		/*//日志拦截器
 		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-		loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+		loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);*/
 
 		//缓存
 		int size = 1024 * 1024 * 100;
@@ -91,7 +91,7 @@ public class ApiEngine {
 				.readTimeout(12, TimeUnit.SECONDS)//读取超时
 				.writeTimeout(12, TimeUnit.SECONDS)//写入超时
 				//.addNetworkInterceptor(cacheInterceptor)
-				.addInterceptor(loggingInterceptor)//日志拦截器
+				.addInterceptor(new HttpLoggingInterceptor())//日志拦截器
 				.cache(cache)
 				.build();
 
@@ -100,7 +100,7 @@ public class ApiEngine {
 				.client(client)
 				.addConverterFactory(ScalarsConverterFactory.create())//增加返回值为String的支持
 				.addConverterFactory(GsonConverterFactory.create())//增加返回值为Gson的支持(以实体类返回)
-				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())//增加返回值为Oservable<T>的支持
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())//增加返回值为Oservable<T>的支持
 				.build();
 	}
 

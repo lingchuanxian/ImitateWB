@@ -82,7 +82,7 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:${version.retrofitSdkVersion}"
     compile "com.squareup.retrofit2:converter-gson:${version.retrofitSdkVersion}"
     compile "com.squareup.retrofit2:converter-scalars:${version.retrofitSdkVersion}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${version.retrofitSdkVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:2.2.0"
     //okhttp3
     compile "com.squareup.okhttp3:okhttp:${version.okhttp3SdkVersion}"
     compile "com.squareup.okhttp3:logging-interceptor:${version.okhttp3SdkVersion}"
