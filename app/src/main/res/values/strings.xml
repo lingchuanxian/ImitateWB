@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ImitateWB</string>
+    <!--StateFrameLayout-->
+    <string name="state_loading">正在加载...</string>
+    <string name="state_empty">暂无数据。</string>
+    <string name="state_offline">当前网络不可用，请检查网络连接。</string>
 </resources>

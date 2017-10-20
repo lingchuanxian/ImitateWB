@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.fjlcx.android.imitatewb.R;
 import cn.fjlcx.android.imitatewb.global.WBApplication;
@@ -36,6 +38,8 @@ import cn.fjlcx.android.imitatewb.utils.AppUtil;
 import cn.fjlcx.android.imitatewb.utils.NetUtils;
 import cn.fjlcx.android.imitatewb.utils.ToastUtil;
 import cn.fjlcx.android.imitatewb.widget.ToolBarSet;
+import cn.fjlcx.android.stateframelayout.StateFrameLayout;
+import cn.fjlcx.android.stateframelayout.StateOption;
 
 
 /**
@@ -47,7 +51,9 @@ import cn.fjlcx.android.imitatewb.widget.ToolBarSet;
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView, ActivityCompat.OnRequestPermissionsResultCallback {
 	protected final String TAG = this.getClass().getSimpleName();
-
+	@Nullable
+	@BindView(R.id.sfl_state)
+	StateFrameLayout mStateFrameLayout;
 	private Toolbar mToolbar;
 	@Inject
 	protected P mPresenter;
@@ -155,27 +161,27 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
 	@Override
 	public void showData() {
-		/*if (mStateFrameLayout != null) {
+		if (mStateFrameLayout != null) {
 			mStateFrameLayout.showState(new StateOption()
 					.setState(StateOption.State.datas));
-		}*/
+		}
 	}
 
 	@Override
 	public void showLoding() {
-		/*if (mStateFrameLayout != null) {
+		if (mStateFrameLayout != null) {
 			mStateFrameLayout.showState(new StateOption()
 					.setState(StateOption.State.loading)
 					.setMessage("正在加载")
 					.setMessageSize(14)
 					.setMessageColor(R.color.state_text_color)
 			);
-		}*/
+		}
 	}
 
 	@Override
 	public void showNetError() {
-		/*if (mStateFrameLayout != null) {
+		if (mStateFrameLayout != null) {
 			mStateFrameLayout.showState(new StateOption()
 					.setState(StateOption.State.offline)
 					.setShowImage(true)
@@ -184,12 +190,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 					.setMessageSize(14)
 					.setMessageColor(R.color.state_text_color)
 			);
-		}*/
+		}
 	}
 
 	@Override
 	public void showErr(String err) {
-		/*if (mStateFrameLayout != null) {
+		if (mStateFrameLayout != null) {
 			mStateFrameLayout.showState(new StateOption()
 					.setState(StateOption.State.error)
 					.setShowImage(true)
@@ -198,12 +204,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 					.setMessageSize(14)
 					.setMessageColor(R.color.state_text_color)
 			);
-		}*/
+		}
 	}
 
 	@Override
 	public void showNonData() {
-		/*if (mStateFrameLayout != null) {
+		if (mStateFrameLayout != null) {
 			mStateFrameLayout.showState(new StateOption()
 					.setState(StateOption.State.empty)
 					.setShowImage(true)
@@ -212,7 +218,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 					.setMessageSize(14)
 					.setMessageColor(R.color.state_text_color)
 			);
-		}*/
+		}
 	}
 
 

@@ -8,10 +8,25 @@
     android:orientation="vertical"
     android:background="@color/main_bgColor">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rclv_home"
+    <cn.fjlcx.android.stateframelayout.StateFrameLayout
+        android:id="@+id/sfl_state"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"/>
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rclv_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="vertical"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </cn.fjlcx.android.stateframelayout.StateFrameLayout>
 
 </LinearLayout>

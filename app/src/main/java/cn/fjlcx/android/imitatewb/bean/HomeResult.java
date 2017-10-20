@@ -32,7 +32,7 @@ public class HomeResult {
 	private boolean hasvisible;
 	private BigInteger previous_cursor;
 	private long next_cursor;
-	private BigInteger total_number;
+	private int total_number;
 	private BigInteger BigIntegererval;
 	private BigInteger uve_blank;
 	private long since_id;
@@ -66,11 +66,11 @@ public class HomeResult {
 		this.next_cursor = next_cursor;
 	}
 
-	public BigInteger getTotal_number() {
+	public int getTotal_number() {
 		return total_number;
 	}
 
-	public void setTotal_number(BigInteger total_number) {
+	public void setTotal_number(int total_number) {
 		this.total_number = total_number;
 	}
 
